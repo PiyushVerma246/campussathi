@@ -1,16 +1,29 @@
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
-import { LogOut, MessageSquare, Shield, Globe } from 'lucide-react';
+import { LogOut, MessageSquare, Shield, Globe, Sun, Moon, Monitor } from 'lucide-react';
 import { useState } from 'react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export const Navigation = () => {
   const { user, logout } = useAuth();
+  const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme();
   const [language, setLanguage] = useState('EN');
 
   if (!user) return null;
 
   const toggleLanguage = () => {
     setLanguage(prev => prev === 'EN' ? 'ES' : 'EN');
+  };
+
+  const getThemeIcon = () => {
+    if (theme === 'system') return <Monitor className="h-4 w-4" />;
+    return resolvedTheme === 'dark' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />;
   };
 
   return (
@@ -36,6 +49,35 @@ export const Navigation = () => {
           </div>
           
           <div className="flex items-center space-x-4">
+            {/* Theme Selector */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center space-x-2"
+                >
+                  {getThemeIcon()}
+                  <span className="hidden sm:inline">Theme</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setTheme('light')}>
+                  <Sun className="h-4 w-4 mr-2" />
+                  Light
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme('dark')}>
+                  <Moon className="h-4 w-4 mr-2" />
+                  Dark
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme('system')}>
+                  <Monitor className="h-4 w-4 mr-2" />
+                  System
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Language Toggle */}
             <Button
               variant="outline"
               size="sm"
@@ -46,6 +88,7 @@ export const Navigation = () => {
               <span>{language}</span>
             </Button>
             
+            {/* User Info and Logout */}
             <div className="flex items-center space-x-2">
               <span className="text-sm text-muted-foreground">
                 Welcome, {user.username}
