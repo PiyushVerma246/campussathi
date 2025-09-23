@@ -55,8 +55,29 @@ export const UserDashboard = () => {
     // Search for response
     const response = searchInstitutionalData(userMessage);
     
-    const botResponse = response || 
-      "I couldn't find that information in our knowledge base. Please contact the administrator for assistance, or try rephrasing your question.";
+    let botResponse: string;
+    if (response) {
+      botResponse = response;
+    } else {
+      // Provide helpful suggestions if no match found
+      const suggestions = [
+        "• Office hours and contact information",
+        "• Leave application process", 
+        "• Password reset instructions",
+        "• IT support contacts",
+        "• Remote work policy",
+        "• Expense reimbursement",
+        "• Holiday schedule",
+        "• Building access information"
+      ];
+      
+      botResponse = `I couldn't find specific information about "${userMessage}" in our knowledge base. 
+
+Here are some topics I can help with:
+${suggestions.join('\n')}
+
+Please try asking about one of these topics, or contact the administrator for assistance.`;
+    }
 
     // Add bot response
     addChatMessage({
@@ -78,8 +99,12 @@ export const UserDashboard = () => {
   const quickQuestions = [
     "What are the office hours?",
     "How do I apply for leave?",
-    "What are the recent policy updates?",
-    "How can I contact support?",
+    "How do I reset my password?",
+    "How can I contact IT support?",
+    "What is the remote work policy?",
+    "How do I claim expense reimbursement?",
+    "What are the official holidays?",
+    "How do I access the building after hours?",
   ];
 
   const handleQuickQuestion = (question: string) => {
