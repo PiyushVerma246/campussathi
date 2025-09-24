@@ -16,14 +16,13 @@ export const Homepage = () => {
               </div>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 animate-fade-in">
-              Institutional
+              Campus_Sathi
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70">
-                Chatbot Platform
+                Smart Campus Assistant
               </span>
             </h1>
             <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto animate-fade-in">
-              Streamline institutional communication with our intelligent chatbot system. 
-              Manage FAQs, circulars, and provide instant support to your community.
+              Your intelligent campus assistant for academic support, document analysis, and instant answers to all your campus-related questions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
               <Link to="/login">
@@ -127,10 +126,10 @@ export const Homepage = () => {
       <div className="bg-white/10 backdrop-blur-sm border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Transform Your Institution?
+            Ready to Experience Campus_Sathi?
           </h2>
           <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-            Join thousands of institutions already using our platform to enhance communication and streamline support.
+            Join students and faculty already using Campus_Sathi to enhance campus communication and get instant support.
           </p>
           <Link to="/login">
             <Button size="lg" variant="secondary" className="group">

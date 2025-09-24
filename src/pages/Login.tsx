@@ -39,28 +39,93 @@ export const Login = () => {
 
   return (
     <div className="min-h-screen bg-gradient-primary flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
-        {/* Logo/Header */}
-        <div className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full">
-              <MessageSquare className="h-12 w-12 text-white" />
+      <div className="w-full max-w-6xl">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="flex justify-center mb-6">
+            <div className="bg-white/20 backdrop-blur-sm p-6 rounded-full animate-float">
+              <MessageSquare className="h-16 w-16 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">
-            Institutional Chatbot
+          <h1 className="text-5xl font-bold text-white mb-4 animate-fade-in">
+            Campus_Sathi
           </h1>
-          <p className="text-white/80">
-            Please sign in to continue
+          <p className="text-xl text-white/90 animate-slide-up">
+            Your Intelligent Campus Assistant
           </p>
         </div>
 
+        {/* Two Section Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Admin Section */}
+          <Card className="backdrop-blur-sm bg-white/95 shadow-medium border-0 hover-scale animate-slide-up">
+            <CardHeader className="text-center pb-4 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-t-lg">
+              <div className="flex justify-center mb-3">
+                <Shield className="h-12 w-12" />
+              </div>
+              <CardTitle className="text-2xl">Administrator Access</CardTitle>
+              <CardDescription className="text-red-100">
+                Manage system settings and user data
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                <div className="text-center mb-6">
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Admin Features</h3>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Manage institutional data</li>
+                    <li>• User management</li>
+                    <li>• System analytics</li>
+                    <li>• Content moderation</li>
+                  </ul>
+                </div>
+                <div className="bg-muted/30 p-4 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-2">Demo Credentials:</p>
+                  <p className="font-mono text-sm">Username: admin</p>
+                  <p className="font-mono text-sm">Password: admin123</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* User Section */}
+          <Card className="backdrop-blur-sm bg-white/95 shadow-medium border-0 hover-scale animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <CardHeader className="text-center pb-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-t-lg">
+              <div className="flex justify-center mb-3">
+                <User className="h-12 w-12" />
+              </div>
+              <CardTitle className="text-2xl">Student Access</CardTitle>
+              <CardDescription className="text-blue-100">
+                Get instant answers and upload documents
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                <div className="text-center mb-6">
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Student Features</h3>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• AI-powered chat assistance</li>
+                    <li>• Document analysis</li>
+                    <li>• FAQ responses</li>
+                    <li>• Quick question shortcuts</li>
+                  </ul>
+                </div>
+                <div className="bg-muted/30 p-4 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-2">Demo Credentials:</p>
+                  <p className="font-mono text-sm">Username: user</p>
+                  <p className="font-mono text-sm">Password: user123</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Login Form */}
-        <Card className="backdrop-blur-sm bg-white/95 shadow-medium border-0">
+        <Card className="backdrop-blur-sm bg-white/95 shadow-medium border-0 max-w-md mx-auto mt-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <CardHeader className="text-center pb-4">
             <CardTitle className="text-2xl text-foreground">Sign In</CardTitle>
             <CardDescription>
-              Enter your credentials to access the platform
+              Enter your credentials to access Campus_Sathi
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -112,29 +177,6 @@ export const Login = () => {
                 {isLoading ? 'Signing in...' : 'Sign In'}
               </Button>
             </form>
-
-            {/* Login Info */}
-            <div className="pt-4 border-t space-y-3">
-              <p className="text-center text-sm text-muted-foreground">
-                Demo Login Information:
-              </p>
-              <div className="grid grid-cols-1 gap-3 text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg">
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center">
-                    <Shield className="h-3 w-3 mr-1" />
-                    Admin:
-                  </span>
-                  <span className="font-mono">admin / admin123</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center">
-                    <User className="h-3 w-3 mr-1" />
-                    User:
-                  </span>
-                  <span className="font-mono">user / user123</span>
-                </div>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>

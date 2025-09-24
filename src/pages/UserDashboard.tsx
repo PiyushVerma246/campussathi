@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Send, Upload, MessageSquare, Bot, User, FileText, UserCircle, Paperclip } from 'lucide-react';
+import { Send, Upload, MessageSquare, Bot, User, FileText, UserCircle, Paperclip, History, Trash2 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 
 export const UserDashboard = () => {
@@ -18,7 +18,8 @@ export const UserDashboard = () => {
   const [message, setMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [userMessages, setUserMessages] = useState<ChatMessage[]>([]);
-  const [uploadedFiles, setUploadedFiles] = useState<Array<{id: string, name: string, size: number, type: string, uploadDate: Date}>>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<Array<{id: string, name: string, size: number, type: string, uploadDate: Date, content?: string}>>([]);
+  const [chatHistory, setChatHistory] = useState<Array<{id: string, title: string, messages: ChatMessage[], date: Date}>>([]);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -36,6 +37,24 @@ export const UserDashboard = () => {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
   }, [userMessages, isTyping]);
+
+  const searchUploadedDocuments = (query: string): string | null => {
+    const searchTerms = query.toLowerCase().split(' ');
+    const relevantFiles = uploadedFiles.filter(file => {
+      const fileName = file.name.toLowerCase();
+      return searchTerms.some(term => 
+        fileName.includes(term) || 
+        (file.content && file.content.toLowerCase().includes(term))
+      );
+    });
+
+    if (relevantFiles.length > 0) {
+      const fileNames = relevantFiles.map(f => f.name).join(', ');
+      return `Based on your uploaded documents (${fileNames}), I found relevant content. However, for detailed document analysis, I recommend asking specific questions about the document content.`;
+    }
+    
+    return null;
+  };
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,12 +76,20 @@ export const UserDashboard = () => {
     // Simulate processing delay
     await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
 
-    // Search for response
-    const response = searchInstitutionalData(userMessage);
+    // Search for response in knowledge base
+    let response = searchInstitutionalData(userMessage);
+    
+    // If no response from knowledge base, search uploaded documents
+    if (!response) {
+      const documentResponse = searchUploadedDocuments(userMessage);
+      if (documentResponse) {
+        response = documentResponse;
+      }
+    }
     
     let botResponse: string;
     if (response) {
-      botResponse = response;
+      botResponse = `📚 Campus_Sathi found relevant information:\n\n${response}`;
     } else {
       // Provide helpful suggestions if no match found
       const suggestions = [
@@ -73,15 +100,16 @@ export const UserDashboard = () => {
         "• Remote work policy",
         "• Expense reimbursement",
         "• Holiday schedule",
-        "• Building access information"
+        "• Building access information",
+        "• Questions about your uploaded documents"
       ];
       
-      botResponse = `I couldn't find specific information about "${userMessage}" in our knowledge base. 
+      botResponse = `I couldn't find specific information about "${userMessage}" in our knowledge base or your uploaded documents. 
 
 Here are some topics I can help with:
 ${suggestions.join('\n')}
 
-Please try asking about one of these topics, or contact the administrator for assistance.`;
+Please try asking about one of these topics, upload relevant documents, or contact the administrator for assistance.`;
     }
 
     // Add bot response
@@ -109,43 +137,98 @@ Please try asking about one of these topics, or contact the administrator for as
         return;
       }
 
-      // Simulate file processing
-      const newFile = {
-        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        uploadDate: new Date()
-      };
+      // Simulate file content extraction for text files
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target?.result as string;
+        
+        const newFile = {
+          id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          uploadDate: new Date(),
+          content: file.type.includes('text') ? content : undefined
+        };
 
-      setUploadedFiles(prev => [...prev, newFile]);
-      
-      toast({
-        title: "File uploaded successfully",
-        description: `${file.name} has been uploaded and processed.`,
-      });
+        setUploadedFiles(prev => [...prev, newFile]);
+        
+        toast({
+          title: "File uploaded successfully",
+          description: `${file.name} has been uploaded and processed by Campus_Sathi.`,
+        });
 
-      // Add a message about the file upload
-      addChatMessage({
-        content: `📎 File uploaded: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`,
-        isUser: true,
-        userId: user?.id,
-      });
-
-      // Simulate bot response
-      setTimeout(() => {
+        // Add a message about the file upload
         addChatMessage({
-          content: `I've received your file "${file.name}". I can help you with questions about the content once it's processed. What would you like to know about this document?`,
-          isUser: false,
+          content: `📎 File uploaded: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`,
+          isUser: true,
           userId: user?.id,
         });
-      }, 1000);
+
+        // Simulate bot response
+        setTimeout(() => {
+          addChatMessage({
+            content: `Campus_Sathi has processed your file "${file.name}". I can now answer questions about this document. Try asking: "What is this document about?" or "Summarize the key points from ${file.name}".`,
+            isUser: false,
+            userId: user?.id,
+          });
+        }, 1000);
+      };
+
+      // Read file content for text files
+      if (file.type.includes('text') || file.name.endsWith('.txt') || file.name.endsWith('.md')) {
+        reader.readAsText(file);
+      } else {
+        // For non-text files, create without content
+        const newFile = {
+          id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          uploadDate: new Date()
+        };
+
+        setUploadedFiles(prev => [...prev, newFile]);
+        
+        toast({
+          title: "File uploaded successfully",
+          description: `${file.name} has been uploaded to Campus_Sathi.`,
+        });
+      }
     });
 
     // Reset file input
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+  };
+
+  const clearChat = () => {
+    // Save current chat to history if it has messages
+    if (userMessages.length > 0) {
+      const chatTitle = userMessages[0]?.content.substring(0, 30) + '...' || 'Chat Session';
+      const historyItem = {
+        id: Date.now().toString(),
+        title: chatTitle,
+        messages: [...userMessages],
+        date: new Date()
+      };
+      setChatHistory(prev => [historyItem, ...prev.slice(0, 9)]); // Keep last 10 chats
+    }
+    
+    setUserMessages([]);
+    toast({
+      title: "Chat cleared",
+      description: "Your chat has been cleared and saved to history.",
+    });
+  };
+
+  const loadChatHistory = (historyItem: any) => {
+    setUserMessages([...historyItem.messages]);
+    toast({
+      title: "Chat loaded",
+      description: `Loaded chat from ${historyItem.date.toLocaleDateString()}`,
+    });
   };
 
   const triggerFileUpload = () => {
@@ -186,15 +269,22 @@ Please try asking about one of these topics, or contact the administrator for as
             Welcome back, {user?.username}!
           </h1>
           <p className="text-lg text-muted-foreground">
-            Your intelligent assistant for institutional support and information.
+            Campus_Sathi - Your intelligent campus assistant for support and information.
           </p>
         </div>
 
         <Tabs defaultValue="chat" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
+          <TabsList className="grid w-full grid-cols-4 mb-8">
             <TabsTrigger value="chat" className="flex items-center space-x-2">
               <MessageSquare className="h-4 w-4" />
               <span>Chat Assistant</span>
+            </TabsTrigger>
+            <TabsTrigger value="history" className="flex items-center space-x-2">
+              <History className="h-4 w-4" />
+              <span>Chat History</span>
+              {chatHistory.length > 0 && (
+                <Badge variant="secondary" className="ml-1">{chatHistory.length}</Badge>
+              )}
             </TabsTrigger>
             <TabsTrigger value="files" className="flex items-center space-x-2">
               <FileText className="h-4 w-4" />
@@ -216,9 +306,19 @@ Please try asking about one of these topics, or contact the administrator for as
               <div className="lg:col-span-3">
                 <Card className="h-[600px] flex flex-col shadow-elegant">
                   <CardHeader className="bg-gradient-secondary border-b">
-                    <CardTitle className="flex items-center space-x-2 text-white">
-                      <MessageSquare className="h-5 w-5" />
-                      <span>Chat Assistant</span>
+                    <CardTitle className="flex items-center justify-between text-white">
+                      <div className="flex items-center space-x-2">
+                        <MessageSquare className="h-5 w-5" />
+                        <span>Campus_Sathi Assistant</span>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={clearChat}
+                        className="bg-white/20 border-white/30 text-white hover:bg-white/30"
+                      >
+                        Clear Chat
+                      </Button>
                     </CardTitle>
                   </CardHeader>
                   
@@ -234,7 +334,7 @@ Please try asking about one of these topics, or contact the administrator for as
                             </div>
                             <div className="bg-chat-bot rounded-lg p-4 max-w-md shadow-chat animate-scale-in">
                               <p className="text-chat-bot-foreground">
-                                Hello! I'm your institutional assistant. I can help you find information about policies, procedures, and announcements. You can also upload documents for analysis. What would you like to know?
+                                Hello! I'm Campus_Sathi, your intelligent campus assistant. I can help you with campus policies, procedures, announcements, and analyze your uploaded documents. What would you like to know?
                               </p>
                             </div>
                           </div>
@@ -301,7 +401,7 @@ Please try asking about one of these topics, or contact the administrator for as
                           <Input
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Type your question here..."
+                            placeholder="Ask Campus_Sathi anything..."
                             className="flex-1"
                             disabled={isTyping}
                           />
@@ -363,18 +463,18 @@ Please try asking about one of these topics, or contact the administrator for as
                 {/* Help Card */}
                 <Card className="shadow-elegant">
                   <CardHeader>
-                    <CardTitle className="text-lg">Need Help?</CardTitle>
+                    <CardTitle className="text-lg">Campus_Sathi Features</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <p className="text-sm text-muted-foreground">
                       I can help you with:
                     </p>
                     <ul className="text-sm space-y-1 text-muted-foreground">
-                      <li>• Institutional policies</li>
-                      <li>• Office procedures</li>
-                      <li>• Recent announcements</li>
+                      <li>• Campus policies & procedures</li>
                       <li>• Document analysis</li>
-                      <li>• Frequently asked questions</li>
+                      <li>• Recent announcements</li>
+                      <li>• FAQ responses</li>
+                      <li>• File uploads & processing</li>
                     </ul>
                     <div className="pt-2">
                       <Button variant="outline" size="sm" className="w-full hover-scale">
@@ -385,6 +485,64 @@ Please try asking about one of these topics, or contact the administrator for as
                 </Card>
               </div>
             </div>
+          </TabsContent>
+
+          {/* Chat History Tab */}
+          <TabsContent value="history" className="space-y-6">
+            <Card className="shadow-elegant">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <span className="flex items-center space-x-2">
+                    <History className="h-5 w-5" />
+                    <span>Chat History</span>
+                  </span>
+                  <Button 
+                    onClick={() => setChatHistory([])} 
+                    variant="outline" 
+                    size="sm" 
+                    className="hover-scale"
+                    disabled={chatHistory.length === 0}
+                  >
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Clear All
+                  </Button>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {chatHistory.length === 0 ? (
+                  <div className="text-center py-12">
+                    <History className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-foreground mb-2">No chat history yet</h3>
+                    <p className="text-muted-foreground">Your previous conversations will appear here</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {chatHistory.map((chat) => (
+                      <div 
+                        key={chat.id} 
+                        className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow hover-scale cursor-pointer"
+                        onClick={() => loadChatHistory(chat)}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-primary/10 p-2 rounded-lg">
+                            <MessageSquare className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-foreground truncate max-w-md">{chat.title}</h4>
+                            <p className="text-sm text-muted-foreground">
+                              {chat.date.toLocaleDateString()} • {chat.messages.length} messages
+                            </p>
+                          </div>
+                        </div>
+                        <Button variant="ghost" size="sm">
+                          Load Chat
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Files Tab */}
@@ -407,7 +565,7 @@ Please try asking about one of these topics, or contact the administrator for as
                   <div className="text-center py-12">
                     <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     <h3 className="text-lg font-semibold text-foreground mb-2">No files uploaded yet</h3>
-                    <p className="text-muted-foreground mb-4">Upload documents to get started with file analysis</p>
+                    <p className="text-muted-foreground mb-4">Upload documents for Campus_Sathi to analyze</p>
                     <Button onClick={triggerFileUpload} variant="gradient" className="hover-scale">
                       <Upload className="h-4 w-4 mr-2" />
                       Upload Your First File
@@ -422,13 +580,15 @@ Please try asking about one of these topics, or contact the administrator for as
                             <FileText className="h-5 w-5 text-primary" />
                           </div>
                           <div>
-                            <p className="font-medium text-foreground">{file.name}</p>
+                            <h4 className="font-medium text-foreground">{file.name}</h4>
                             <p className="text-sm text-muted-foreground">
                               {formatFileSize(file.size)} • Uploaded {file.uploadDate.toLocaleDateString()}
                             </p>
                           </div>
                         </div>
-                        <Badge variant="secondary">Processed</Badge>
+                        <Badge variant={file.content ? "default" : "secondary"}>
+                          {file.content ? "Processed" : "Uploaded"}
+                        </Badge>
                       </div>
                     ))}
                   </div>
@@ -438,7 +598,7 @@ Please try asking about one of these topics, or contact the administrator for as
           </TabsContent>
 
           {/* Profile Tab */}
-          <TabsContent value="profile" className="space-y-6">
+          <TabsContent value="profile">
             <UserProfile />
           </TabsContent>
         </Tabs>
