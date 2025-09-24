@@ -37,17 +37,6 @@ export const Login = () => {
     setIsLoading(false);
   };
 
-  const fillCredentials = (role: 'admin' | 'user') => {
-    if (role === 'admin') {
-      setUsername('admin');
-      setPassword('admin123');
-    } else {
-      setUsername('user');
-      setPassword('user123');
-    }
-    setError('');
-  };
-
   return (
     <div className="min-h-screen bg-gradient-primary flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
@@ -124,34 +113,27 @@ export const Login = () => {
               </Button>
             </form>
 
-            {/* Demo Credentials */}
+            {/* Login Info */}
             <div className="pt-4 border-t space-y-3">
               <p className="text-center text-sm text-muted-foreground">
-                Demo Credentials:
+                Demo Login Information:
               </p>
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => fillCredentials('admin')}
-                  className="flex items-center space-x-2"
-                >
-                  <Shield className="h-4 w-4" />
-                  <span>Admin</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => fillCredentials('user')}
-                  className="flex items-center space-x-2"
-                >
-                  <User className="h-4 w-4" />
-                  <span>User</span>
-                </Button>
+              <div className="grid grid-cols-1 gap-3 text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center">
+                    <Shield className="h-3 w-3 mr-1" />
+                    Admin:
+                  </span>
+                  <span className="font-mono">admin / admin123</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center">
+                    <User className="h-3 w-3 mr-1" />
+                    User:
+                  </span>
+                  <span className="font-mono">user / user123</span>
+                </div>
               </div>
-              <p className="text-xs text-muted-foreground text-center">
-                Click above to auto-fill demo credentials
-              </p>
             </div>
           </CardContent>
         </Card>

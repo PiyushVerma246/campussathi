@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { DataProvider } from "@/contexts/DataContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { Homepage } from "@/pages/Homepage";
 import { Login } from "@/pages/Login";
 import { AdminDashboard } from "@/pages/AdminDashboard";
 import { UserDashboard } from "@/pages/UserDashboard";
@@ -24,7 +25,7 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Navigate to="/login" replace />} />
+                <Route path="/" element={<Homepage />} />
                 <Route path="/login" element={<Login />} />
                 <Route 
                   path="/admin" 
