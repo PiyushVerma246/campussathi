@@ -7,7 +7,9 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { DataProvider } from "@/contexts/DataContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { Homepage } from "@/pages/Homepage";
+import { Home } from "@/pages/Home";
+import { About } from "@/pages/About";
+import { Contact } from "@/pages/Contact";
 import { Login } from "@/pages/Login";
 import { AdminDashboard } from "@/pages/AdminDashboard";
 import { UserDashboard } from "@/pages/UserDashboard";
@@ -25,7 +27,9 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Homepage />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
                 <Route 
                   path="/admin" 
