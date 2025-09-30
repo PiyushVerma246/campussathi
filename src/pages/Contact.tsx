@@ -8,6 +8,7 @@ import { Footer } from '@/components/Footer';
 import { Mail, Phone, MapPin, Clock, Send, MessageSquare } from 'lucide-react';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import contactImage from '@/assets/contact-support.jpg';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -41,8 +42,12 @@ export const Contact = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="py-24 bg-gradient-primary">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative py-24 bg-gradient-primary overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <img src={contactImage} alt="Contact Support" className="w-full h-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-secondary/90"></div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 animate-fade-in">
             Get In Touch
           </h1>

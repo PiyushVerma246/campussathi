@@ -1,8 +1,8 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/hooks/useLanguage';
 import { Button } from '@/components/ui/button';
 import { LogOut, MessageSquare, Shield, Globe, Sun, Moon, Monitor, Brain } from 'lucide-react';
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   DropdownMenu,
@@ -13,16 +13,12 @@ import {
 
 export const Navigation = () => {
   const { user, logout } = useAuth();
-  const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme();
-  const [language, setLanguage] = useState('EN');
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { language, changeLanguage, availableLanguages, languageNames } = useLanguage();
   const location = useLocation();
 
   // Show different navigation for authenticated vs public pages
   const isPublicPage = !user;
-
-  const toggleLanguage = () => {
-    setLanguage(prev => prev === 'EN' ? 'ES' : 'EN');
-  };
 
   const getThemeIcon = () => {
     if (theme === 'system') return <Monitor className="h-4 w-4" />;
@@ -71,6 +67,27 @@ export const Navigation = () => {
             </div>
 
             <div className="flex items-center space-x-4">
+              {/* Language Selector */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                    <Globe className="h-4 w-4" />
+                    <span className="hidden sm:inline">{languageNames[language]}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40">
+                  {availableLanguages.map((lang) => (
+                    <DropdownMenuItem 
+                      key={lang}
+                      onClick={() => changeLanguage(lang)}
+                      className={language === lang ? "bg-primary/10" : ""}
+                    >
+                      {languageNames[lang]}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               {/* Theme Selector */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -127,6 +144,31 @@ export const Navigation = () => {
           </div>
           
           <div className="flex items-center space-x-4">
+            {/* Language Selector */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center space-x-2"
+                >
+                  <Globe className="h-4 w-4" />
+                  <span className="hidden sm:inline">{languageNames[language]}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-40">
+                {availableLanguages.map((lang) => (
+                  <DropdownMenuItem 
+                    key={lang}
+                    onClick={() => changeLanguage(lang)}
+                    className={language === lang ? "bg-primary/10" : ""}
+                  >
+                    {languageNames[lang]}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             {/* Theme Selector */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -154,17 +196,6 @@ export const Navigation = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
-            {/* Language Toggle */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={toggleLanguage}
-              className="flex items-center space-x-2"
-            >
-              <Globe className="h-4 w-4" />
-              <span>{language}</span>
-            </Button>
             
             {/* User Info and Logout */}
             <div className="flex items-center space-x-2">

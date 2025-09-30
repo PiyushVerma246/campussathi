@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Brain, Users, Target, Lightbulb, Award, Zap } from 'lucide-react';
+import teamImage from '@/assets/team-about.jpg';
 
 export const About = () => {
   return (
@@ -37,13 +38,16 @@ export const About = () => {
                 Our AI-powered platform bridges the gap between complex institutional knowledge and user-friendly accessibility, making campus life smoother for everyone.
               </p>
             </div>
-            <div className="relative">
-              <div className="bg-gradient-primary rounded-2xl p-8 shadow-elegant">
-                <Brain className="h-16 w-16 text-white mb-4 animate-float" />
-                <h3 className="text-2xl font-bold text-white mb-4">Smart Campus Assistant</h3>
-                <p className="text-white/90">
-                  Leveraging advanced AI to understand, analyze, and respond to complex campus queries with human-like intelligence.
-                </p>
+            <div className="relative animate-fade-in">
+              <img src={teamImage} alt="Campus Team" className="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent rounded-2xl flex items-end p-8">
+                <div>
+                  <Brain className="h-12 w-12 text-white mb-4 animate-float" />
+                  <h3 className="text-2xl font-bold text-white mb-2">Smart Campus Assistant</h3>
+                  <p className="text-white/90">
+                    Leveraging advanced AI to understand, analyze, and respond to complex campus queries with human-like intelligence.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

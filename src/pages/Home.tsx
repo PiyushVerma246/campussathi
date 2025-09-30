@@ -4,6 +4,8 @@ import { MessageSquare, Shield, User, Zap, Globe, FileText, Users, BookOpen, Arr
 import { Link } from 'react-router-dom';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import heroImage from '@/assets/hero-campus.jpg';
+import aiAnalysisImage from '@/assets/ai-analysis.jpg';
 
 export const Home = () => {
   return (
@@ -12,35 +14,43 @@ export const Home = () => {
       
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-primary py-32">
-        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div className="absolute inset-0 opacity-20">
+          <img src={heroImage} alt="Campus Hero" className="w-full h-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-secondary/90"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="flex justify-center mb-8">
-              <div className="bg-white/20 backdrop-blur-sm p-6 rounded-full animate-fade-in animate-float">
-                <Brain className="h-20 w-20 text-white" />
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-left">
+              <div className="flex items-center mb-8 animate-slide-in-left">
+                <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full animate-float">
+                  <Brain className="h-16 w-16 text-white" />
+                </div>
+              </div>
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
+                Campus_Sathi
+              </h1>
+              <div className="text-2xl md:text-3xl text-white/90 mb-4 animate-fade-in">
+                Your Intelligent Campus Assistant
+              </div>
+              <p className="text-lg text-white/80 mb-12 max-w-2xl animate-fade-in">
+                Revolutionizing campus communication with AI-powered document analysis, instant support, and intelligent query handling for students and faculty.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 animate-fade-in">
+                <Link to="/login">
+                  <Button size="lg" variant="secondary" className="group px-8 py-4 text-lg hover-lift">
+                    Get Started Today
+                    <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-2 transition-all duration-300" />
+                  </Button>
+                </Link>
+                <Link to="/about">
+                  <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 px-8 py-4 text-lg backdrop-blur-sm">
+                    Learn More
+                  </Button>
+                </Link>
               </div>
             </div>
-            <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
-              Campus_Sathi
-            </h1>
-            <div className="text-2xl md:text-3xl text-white/90 mb-4 animate-fade-in">
-              Your Intelligent Campus Assistant
-            </div>
-            <p className="text-xl text-white/80 mb-12 max-w-3xl mx-auto animate-fade-in">
-              Revolutionizing campus communication with AI-powered document analysis, instant support, and intelligent query handling for students and faculty.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in">
-              <Link to="/login">
-                <Button size="lg" variant="secondary" className="group px-8 py-4 text-lg">
-                  Get Started Today
-                  <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-2 transition-all duration-300" />
-                </Button>
-              </Link>
-              <Link to="/about">
-                <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 px-8 py-4 text-lg">
-                  Learn More
-                </Button>
-              </Link>
+            <div className="hidden lg:block animate-slide-in-right">
+              <img src={aiAnalysisImage} alt="AI Analysis" className="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500" />
             </div>
           </div>
         </div>
