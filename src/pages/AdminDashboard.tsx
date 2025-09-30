@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useData, InstitutionalData } from '@/contexts/DataContext';
+import { useLanguage } from '@/hooks/useLanguage';
 import { Navigation } from '@/components/Navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +14,7 @@ import { Plus, Edit2, Trash2, FileText, AlertCircle, HelpCircle, MessageSquare }
 import { toast } from '@/hooks/use-toast';
 
 export const AdminDashboard = () => {
+  const { t } = useLanguage();
   const { institutionalData, addInstitutionalData, updateInstitutionalData, deleteInstitutionalData, chatMessages } = useData();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<InstitutionalData | null>(null);
@@ -95,9 +97,9 @@ export const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Admin Dashboard</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-2">{t.adminDashboard}</h1>
           <p className="text-muted-foreground">
-            Manage institutional data and monitor chatbot interactions
+            {t.manageData}
           </p>
         </div>
 
@@ -105,7 +107,7 @@ export const AdminDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Documents</CardTitle>
+              <CardTitle className="text-sm font-medium">{t.totalDocuments}</CardTitle>
               <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -118,7 +120,7 @@ export const AdminDashboard = () => {
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">User Queries</CardTitle>
+              <CardTitle className="text-sm font-medium">{t.userQueries}</CardTitle>
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -131,7 +133,7 @@ export const AdminDashboard = () => {
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Categories</CardTitle>
+              <CardTitle className="text-sm font-medium">{t.categories}</CardTitle>
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -165,7 +167,7 @@ export const AdminDashboard = () => {
                       variant="gradient"
                       >
                         <Plus className="h-4 w-4 mr-2" />
-                        Add New
+                        {t.addNew}
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-2xl">
@@ -300,7 +302,7 @@ export const AdminDashboard = () => {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Recent User Queries</CardTitle>
+                <CardTitle className="text-lg">{t.recentQueries}</CardTitle>
                 <CardDescription>Latest questions from users</CardDescription>
               </CardHeader>
               <CardContent>
@@ -325,7 +327,7 @@ export const AdminDashboard = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Quick Actions</CardTitle>
+                <CardTitle className="text-lg">{t.quickActions}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 <Button 

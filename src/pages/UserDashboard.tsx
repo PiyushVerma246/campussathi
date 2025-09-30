@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useData, ChatMessage } from '@/contexts/DataContext';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/hooks/useLanguage';
 import { Navigation } from '@/components/Navigation';
 import { UserProfile } from '@/components/UserProfile';
 import { Button } from '@/components/ui/button';
@@ -14,6 +15,7 @@ import { toast } from '@/hooks/use-toast';
 
 export const UserDashboard = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const { addChatMessage, searchInstitutionalData, chatMessages } = useData();
   const [message, setMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -266,10 +268,10 @@ Please try asking about one of these topics, upload relevant documents, or conta
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Welcome back, {user?.username}!
+            {t.welcomeBack}, {user?.username}!
           </h1>
           <p className="text-lg text-muted-foreground">
-            Campus_Sathi - Your intelligent campus assistant for support and information.
+            {t.dashboardSubtitle}
           </p>
         </div>
 
@@ -277,25 +279,25 @@ Please try asking about one of these topics, upload relevant documents, or conta
           <TabsList className="grid w-full grid-cols-4 mb-8">
             <TabsTrigger value="chat" className="flex items-center space-x-2">
               <MessageSquare className="h-4 w-4" />
-              <span>Chat Assistant</span>
+              <span>{t.chatAssistant}</span>
             </TabsTrigger>
             <TabsTrigger value="history" className="flex items-center space-x-2">
               <History className="h-4 w-4" />
-              <span>Chat History</span>
+              <span>{t.chatHistory}</span>
               {chatHistory.length > 0 && (
                 <Badge variant="secondary" className="ml-1">{chatHistory.length}</Badge>
               )}
             </TabsTrigger>
             <TabsTrigger value="files" className="flex items-center space-x-2">
               <FileText className="h-4 w-4" />
-              <span>My Files</span>
+              <span>{t.myFiles}</span>
               {uploadedFiles.length > 0 && (
                 <Badge variant="secondary" className="ml-1">{uploadedFiles.length}</Badge>
               )}
             </TabsTrigger>
             <TabsTrigger value="profile" className="flex items-center space-x-2">
               <UserCircle className="h-4 w-4" />
-              <span>Profile</span>
+              <span>{t.profile}</span>
             </TabsTrigger>
           </TabsList>
 
@@ -317,7 +319,7 @@ Please try asking about one of these topics, upload relevant documents, or conta
                         onClick={clearChat}
                         className="bg-white/20 border-white/30 text-white hover:bg-white/30"
                       >
-                        Clear Chat
+                        {t.clearChat}
                       </Button>
                     </CardTitle>
                   </CardHeader>
@@ -401,7 +403,7 @@ Please try asking about one of these topics, upload relevant documents, or conta
                           <Input
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Ask Campus_Sathi anything..."
+                            placeholder={t.askAnything}
                             className="flex-1"
                             disabled={isTyping}
                           />

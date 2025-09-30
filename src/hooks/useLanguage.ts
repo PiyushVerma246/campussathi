@@ -9,6 +9,7 @@ export interface Translations {
   contact: string;
   login: string;
   logout: string;
+  welcome: string;
   
   // Login Page
   welcomeTitle: string;
@@ -41,12 +42,42 @@ export interface Translations {
   forgotPassword: string;
   rememberMe: string;
   
+  // Home Page
+  heroTitle: string;
+  heroSubtitle: string;
+  heroDescription: string;
+  getStarted: string;
+  learnMore: string;
+  featuresTitle: string;
+  featuresSubtitle: string;
+  
+  // Dashboard
+  welcomeBack: string;
+  dashboardSubtitle: string;
+  chatAssistant: string;
+  chatHistory: string;
+  myFiles: string;
+  profile: string;
+  clearChat: string;
+  chatCleared: string;
+  askAnything: string;
+  adminDashboard: string;
+  manageData: string;
+  totalDocuments: string;
+  userQueries: string;
+  categories: string;
+  addNew: string;
+  recentQueries: string;
+  quickActions: string;
+  
   // Common
   language: string;
   theme: string;
   submit: string;
   cancel: string;
   loading: string;
+  send: string;
+  upload: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -57,6 +88,7 @@ const translations: Record<Language, Translations> = {
     contact: 'Contact',
     login: 'Login',
     logout: 'Logout',
+    welcome: 'Welcome',
     
     // Login Page
     welcomeTitle: 'Campus_Sathi',
@@ -89,12 +121,42 @@ const translations: Record<Language, Translations> = {
     forgotPassword: 'Forgot your password?',
     rememberMe: 'Remember me',
     
+    // Home Page
+    heroTitle: 'Campus_Sathi',
+    heroSubtitle: 'Your Intelligent Campus Assistant',
+    heroDescription: 'Revolutionizing campus communication with AI-powered document analysis, instant support, and intelligent query handling for students and faculty.',
+    getStarted: 'Get Started Today',
+    learnMore: 'Learn More',
+    featuresTitle: 'Powerful Features for Modern Campus Life',
+    featuresSubtitle: 'Campus_Sathi combines cutting-edge AI with intuitive design to deliver unparalleled campus support',
+    
+    // Dashboard
+    welcomeBack: 'Welcome back',
+    dashboardSubtitle: 'Your intelligent campus assistant for support and information.',
+    chatAssistant: 'Chat Assistant',
+    chatHistory: 'Chat History',
+    myFiles: 'My Files',
+    profile: 'Profile',
+    clearChat: 'Clear Chat',
+    chatCleared: 'Your chat has been cleared and saved to history.',
+    askAnything: 'Ask Campus_Sathi anything...',
+    adminDashboard: 'Admin Dashboard',
+    manageData: 'Manage institutional data and monitor chatbot interactions',
+    totalDocuments: 'Total Documents',
+    userQueries: 'User Queries',
+    categories: 'Categories',
+    addNew: 'Add New',
+    recentQueries: 'Recent User Queries',
+    quickActions: 'Quick Actions',
+    
     // Common
     language: 'Language',
     theme: 'Theme',
     submit: 'Submit',
     cancel: 'Cancel',
-    loading: 'Loading...'
+    loading: 'Loading...',
+    send: 'Send',
+    upload: 'Upload'
   },
   es: {
     // Navigation
@@ -103,6 +165,7 @@ const translations: Record<Language, Translations> = {
     contact: 'Contacto',
     login: 'Iniciar Sesión',
     logout: 'Cerrar Sesión',
+    welcome: 'Bienvenido',
     
     // Login Page
     welcomeTitle: 'Campus_Sathi',
@@ -135,12 +198,42 @@ const translations: Record<Language, Translations> = {
     forgotPassword: '¿Olvidaste tu contraseña?',
     rememberMe: 'Recordarme',
     
+    // Home Page
+    heroTitle: 'Campus_Sathi',
+    heroSubtitle: 'Tu Asistente de Campus Inteligente',
+    heroDescription: 'Revolucionando la comunicación del campus con análisis de documentos con IA, soporte instantáneo y manejo inteligente de consultas para estudiantes y profesores.',
+    getStarted: 'Comenzar Hoy',
+    learnMore: 'Aprender Más',
+    featuresTitle: 'Funciones Poderosas para la Vida del Campus Moderno',
+    featuresSubtitle: 'Campus_Sathi combina IA de vanguardia con diseño intuitivo para brindar soporte de campus incomparable',
+    
+    // Dashboard
+    welcomeBack: 'Bienvenido de nuevo',
+    dashboardSubtitle: 'Tu asistente de campus inteligente para soporte e información.',
+    chatAssistant: 'Asistente de Chat',
+    chatHistory: 'Historial de Chat',
+    myFiles: 'Mis Archivos',
+    profile: 'Perfil',
+    clearChat: 'Limpiar Chat',
+    chatCleared: 'Tu chat ha sido limpiado y guardado en el historial.',
+    askAnything: 'Pregunta a Campus_Sathi cualquier cosa...',
+    adminDashboard: 'Panel de Administrador',
+    manageData: 'Gestionar datos institucionales y monitorear interacciones del chatbot',
+    totalDocuments: 'Total de Documentos',
+    userQueries: 'Consultas de Usuarios',
+    categories: 'Categorías',
+    addNew: 'Agregar Nuevo',
+    recentQueries: 'Consultas Recientes de Usuarios',
+    quickActions: 'Acciones Rápidas',
+    
     // Common
     language: 'Idioma',
     theme: 'Tema',
     submit: 'Enviar',
     cancel: 'Cancelar',
-    loading: 'Cargando...'
+    loading: 'Cargando...',
+    send: 'Enviar',
+    upload: 'Subir'
   },
   fr: {
     // Navigation
@@ -149,6 +242,7 @@ const translations: Record<Language, Translations> = {
     contact: 'Contact',
     login: 'Connexion',
     logout: 'Déconnexion',
+    welcome: 'Bienvenue',
     
     // Login Page
     welcomeTitle: 'Campus_Sathi',
@@ -181,12 +275,42 @@ const translations: Record<Language, Translations> = {
     forgotPassword: 'Mot de passe oublié?',
     rememberMe: 'Se souvenir de moi',
     
+    // Home Page
+    heroTitle: 'Campus_Sathi',
+    heroSubtitle: 'Votre Assistant de Campus Intelligent',
+    heroDescription: 'Révolutionner la communication du campus avec l\'analyse de documents alimentée par l\'IA, le support instantané et la gestion intelligente des requêtes pour les étudiants et le corps professoral.',
+    getStarted: 'Commencer Aujourd\'hui',
+    learnMore: 'En Savoir Plus',
+    featuresTitle: 'Fonctionnalités Puissantes pour la Vie de Campus Moderne',
+    featuresSubtitle: 'Campus_Sathi combine l\'IA de pointe avec un design intuitif pour offrir un support de campus inégalé',
+    
+    // Dashboard
+    welcomeBack: 'Bon retour',
+    dashboardSubtitle: 'Votre assistant de campus intelligent pour le support et l\'information.',
+    chatAssistant: 'Assistant de Chat',
+    chatHistory: 'Historique du Chat',
+    myFiles: 'Mes Fichiers',
+    profile: 'Profil',
+    clearChat: 'Effacer le Chat',
+    chatCleared: 'Votre chat a été effacé et sauvegardé dans l\'historique.',
+    askAnything: 'Demandez n\'importe quoi à Campus_Sathi...',
+    adminDashboard: 'Tableau de Bord Admin',
+    manageData: 'Gérer les données institutionnelles et surveiller les interactions du chatbot',
+    totalDocuments: 'Total des Documents',
+    userQueries: 'Requêtes des Utilisateurs',
+    categories: 'Catégories',
+    addNew: 'Ajouter Nouveau',
+    recentQueries: 'Requêtes Récentes des Utilisateurs',
+    quickActions: 'Actions Rapides',
+    
     // Common
     language: 'Langue',
     theme: 'Thème',
     submit: 'Soumettre',
     cancel: 'Annuler',
-    loading: 'Chargement...'
+    loading: 'Chargement...',
+    send: 'Envoyer',
+    upload: 'Télécharger'
   },
   de: {
     // Navigation
@@ -195,6 +319,7 @@ const translations: Record<Language, Translations> = {
     contact: 'Kontakt',
     login: 'Anmelden',
     logout: 'Abmelden',
+    welcome: 'Willkommen',
     
     // Login Page
     welcomeTitle: 'Campus_Sathi',
@@ -227,12 +352,42 @@ const translations: Record<Language, Translations> = {
     forgotPassword: 'Passwort vergessen?',
     rememberMe: 'Angemeldet bleiben',
     
+    // Home Page
+    heroTitle: 'Campus_Sathi',
+    heroSubtitle: 'Ihr Intelligenter Campus-Assistent',
+    heroDescription: 'Revolutionierung der Campus-Kommunikation mit KI-gestützter Dokumentenanalyse, sofortiger Unterstützung und intelligenter Abfrageverwaltung für Studenten und Lehrkräfte.',
+    getStarted: 'Heute Beginnen',
+    learnMore: 'Mehr Erfahren',
+    featuresTitle: 'Leistungsstarke Funktionen für das Moderne Campus-Leben',
+    featuresSubtitle: 'Campus_Sathi kombiniert modernste KI mit intuitivem Design, um unvergleichliche Campus-Unterstützung zu bieten',
+    
+    // Dashboard
+    welcomeBack: 'Willkommen zurück',
+    dashboardSubtitle: 'Ihr intelligenter Campus-Assistent für Unterstützung und Informationen.',
+    chatAssistant: 'Chat-Assistent',
+    chatHistory: 'Chat-Verlauf',
+    myFiles: 'Meine Dateien',
+    profile: 'Profil',
+    clearChat: 'Chat Löschen',
+    chatCleared: 'Ihr Chat wurde gelöscht und im Verlauf gespeichert.',
+    askAnything: 'Fragen Sie Campus_Sathi alles...',
+    adminDashboard: 'Admin-Dashboard',
+    manageData: 'Institutionelle Daten verwalten und Chatbot-Interaktionen überwachen',
+    totalDocuments: 'Gesamt Dokumente',
+    userQueries: 'Benutzeranfragen',
+    categories: 'Kategorien',
+    addNew: 'Neu Hinzufügen',
+    recentQueries: 'Aktuelle Benutzeranfragen',
+    quickActions: 'Schnelle Aktionen',
+    
     // Common
     language: 'Sprache',
     theme: 'Thema',
     submit: 'Senden',
     cancel: 'Abbrechen',
-    loading: 'Laden...'
+    loading: 'Laden...',
+    send: 'Senden',
+    upload: 'Hochladen'
   },
   hi: {
     // Navigation
@@ -241,6 +396,7 @@ const translations: Record<Language, Translations> = {
     contact: 'संपर्क',
     login: 'लॉगिन',
     logout: 'लॉगआउट',
+    welcome: 'स्वागत है',
     
     // Login Page
     welcomeTitle: 'Campus_Sathi',
@@ -273,12 +429,42 @@ const translations: Record<Language, Translations> = {
     forgotPassword: 'अपना पासवर्ड भूल गए?',
     rememberMe: 'मुझे याद रखें',
     
+    // Home Page
+    heroTitle: 'Campus_Sathi',
+    heroSubtitle: 'आपका बुद्धिमान कैंपस सहायक',
+    heroDescription: 'AI-संचालित दस्तावेज़ विश्लेषण, त्वरित समर्थन और छात्रों और शिक्षकों के लिए बुद्धिमान प्रश्न प्रबंधन के साथ कैंपस संचार में क्रांति ला रहे हैं।',
+    getStarted: 'आज शुरू करें',
+    learnMore: 'अधिक जानें',
+    featuresTitle: 'आधुनिक कैंपस जीवन के लिए शक्तिशाली सुविधाएं',
+    featuresSubtitle: 'Campus_Sathi अद्वितीय कैंपस समर्थन प्रदान करने के लिए अत्याधुनिक AI को सहज डिज़ाइन के साथ जोड़ता है',
+    
+    // Dashboard
+    welcomeBack: 'वापसी पर स्वागत है',
+    dashboardSubtitle: 'समर्थन और जानकारी के लिए आपका बुद्धिमान कैंपस सहायक।',
+    chatAssistant: 'चैट सहायक',
+    chatHistory: 'चैट इतिहास',
+    myFiles: 'मेरी फ़ाइलें',
+    profile: 'प्रोफ़ाइल',
+    clearChat: 'चैट साफ़ करें',
+    chatCleared: 'आपकी चैट साफ़ कर दी गई है और इतिहास में सहेजी गई है।',
+    askAnything: 'Campus_Sathi से कुछ भी पूछें...',
+    adminDashboard: 'प्रशासक डैशबोर्ड',
+    manageData: 'संस्थागत डेटा प्रबंधित करें और चैटबॉट इंटरैक्शन की निगरानी करें',
+    totalDocuments: 'कुल दस्तावेज़',
+    userQueries: 'उपयोगकर्ता प्रश्न',
+    categories: 'श्रेणियाँ',
+    addNew: 'नया जोड़ें',
+    recentQueries: 'हाल के उपयोगकर्ता प्रश्न',
+    quickActions: 'त्वरित क्रियाएं',
+    
     // Common
     language: 'भाषा',
     theme: 'थीम',
     submit: 'जमा करें',
     cancel: 'रद्द करें',
-    loading: 'लोड हो रहा है...'
+    loading: 'लोड हो रहा है...',
+    send: 'भेजें',
+    upload: 'अपलोड करें'
   },
   zh: {
     // Navigation
@@ -287,6 +473,7 @@ const translations: Record<Language, Translations> = {
     contact: '联系',
     login: '登录',
     logout: '登出',
+    welcome: '欢迎',
     
     // Login Page
     welcomeTitle: 'Campus_Sathi',
@@ -319,12 +506,42 @@ const translations: Record<Language, Translations> = {
     forgotPassword: '忘记密码？',
     rememberMe: '记住我',
     
+    // Home Page
+    heroTitle: 'Campus_Sathi',
+    heroSubtitle: '您的智能校园助手',
+    heroDescription: '通过AI驱动的文档分析、即时支持和智能查询处理，为学生和教职员工革新校园沟通。',
+    getStarted: '立即开始',
+    learnMore: '了解更多',
+    featuresTitle: '现代校园生活的强大功能',
+    featuresSubtitle: 'Campus_Sathi将尖端AI与直观设计相结合，提供无与伦比的校园支持',
+    
+    // Dashboard
+    welcomeBack: '欢迎回来',
+    dashboardSubtitle: '您的智能校园助手，提供支持和信息。',
+    chatAssistant: '聊天助手',
+    chatHistory: '聊天历史',
+    myFiles: '我的文件',
+    profile: '个人资料',
+    clearChat: '清除聊天',
+    chatCleared: '您的聊天已清除并保存到历史记录。',
+    askAnything: '向Campus_Sathi询问任何问题...',
+    adminDashboard: '管理仪表板',
+    manageData: '管理机构数据并监控聊天机器人交互',
+    totalDocuments: '总文档数',
+    userQueries: '用户查询',
+    categories: '类别',
+    addNew: '添加新的',
+    recentQueries: '最近的用户查询',
+    quickActions: '快速操作',
+    
     // Common
     language: '语言',
     theme: '主题',
     submit: '提交',
     cancel: '取消',
-    loading: '加载中...'
+    loading: '加载中...',
+    send: '发送',
+    upload: '上传'
   }
 };
 
